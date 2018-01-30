@@ -1,4 +1,4 @@
-# memoris-dev
+# cpp-dev
 
 C++14 development container. Provision handled by Ansible.
 
