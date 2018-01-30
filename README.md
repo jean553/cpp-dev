@@ -1,6 +1,7 @@
 # cpp-dev
 
 C++14 development container. Provision handled by Ansible.
+Compile and execute C++14 code into an isolated/ready-to-be-used environment.
 
 ## Properties
 
