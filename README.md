@@ -4,7 +4,7 @@ C++14 development container. Provision handled by Ansible.
 
 ## Properties
 
-* Ubuntu 17.04 (Zesty)
+* Ubuntu 17.10 (Artful)
 * g++ 4.9 (for C++14 support)
 * cmake 3.7.2
 * ZSH prompt (including oh-my-zsh)
