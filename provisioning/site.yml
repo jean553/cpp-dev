@@ -23,31 +23,31 @@
     - name: Clone oh-my-zsh repo
       git:
         repo=git://github.com/robbyrussell/oh-my-zsh.git
-        dest=/root/.oh-my-zsh
+        dest=/home/vagrant/.oh-my-zsh
 
     - name: Create a new zsh config
-      command: cp /root/.oh-my-zsh/templates/zshrc.zsh-template /root/.zshrc
+      command: cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
 
     - name: creates pathogen vim directories
       file: path={{ item }} state=directory
       with_items:
-       - /root/.vim/autoload
-       - /root/.vim/bundle
-       - /root/.vim/plugin
+       - /home/vagrant/.vim/autoload
+       - /home/vagrant/.vim/bundle
+       - /home/vagrant/.vim/plugin
 
     - name: install pathogen
-      shell: curl -LSso /root/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+      shell: curl -LSso /home/vagrant/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
     - name: install syntastic
       git:
         repo=https://github.com/scrooloose/syntastic.git
-        dest=/root/.vim/bundle/syntastic
+        dest=/home/vagrant/.vim/bundle/syntastic
         clone=yes
 
     - name: copy the vim configuration
       copy:
         src=roles/vim/files/vimrc
-        dest=/root/.vimrc
+        dest=/home/vagrant/.vimrc
 
     # TODO: check if it can be removed
 
