@@ -3,7 +3,13 @@
 C++14 development container. Provision handled by Ansible.
 Compile and execute C++14 code into an isolated/ready-to-be-used environment.
 
-## Properties
+## Table of content
+
+ * [Image properties](#image-properties)
+ * [Simple usage](#simple-usage)
+ * [Vagrant usage](#vagrant-usage)
+
+## Image properties
 
 * Ubuntu 17.10 (Artful)
 * g++ 7.2
@@ -13,22 +19,34 @@ Compile and execute C++14 code into an isolated/ready-to-be-used environment.
 * syntastic C++11/14 checker
 * doxygen
 
-## Create the container
+## Simple usage
 
-```
+Create the container:
+
+```sh
 docker run --name cpp-dev -t -i -v {PATH_TO_THE_PROJECT}:/{PROJECT_NAME} jean553/cpp-dev /bin/zsh
 ```
 
-The container will be started.
+Start the container:
 
-## Start the container
-
-```
+```sh
 docker start cpp-dev
 ```
 
-## Connect to the container
+Use a shell into the container:
 
-```
+```sh
 docker exec -it cpp-dev /bin/zsh
+```
+
+## Vagrant usage
+
+There is one Vagrantfile example into the project.
+
+```sh
+vagrant up
+```
+
+```sh
+vagrant ssh
 ```
