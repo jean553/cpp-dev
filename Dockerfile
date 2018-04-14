@@ -18,11 +18,6 @@ RUN pip install --upgrade \
     packaging \
     ansible
 
-# copy the provisioning folder
-COPY provisioning/ provisioning
-
-RUN ansible-playbook provisioning/site.yml -c local
-
 RUN mkdir /var/run/sshd
 
 RUN useradd \
@@ -39,6 +34,12 @@ RUN chmod +w ${SUDOFILE} && \
     echo 'vagrant        ALL=(ALL)      ALL' >> ${SUDOFILE}
 
 RUN echo 'vagrant:vagrant' | chpasswd
+
+COPY provisioning/ provisioning
+
+RUN ansible-playbook provisioning/site.yml -c local
+
+RUN chsh -s /bin/zsh vagrant
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
