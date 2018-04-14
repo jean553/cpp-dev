@@ -18,8 +18,6 @@ RUN pip install --upgrade \
     packaging \
     ansible
 
-RUN mkdir /var/run/sshd
-
 RUN useradd \
         --shell /bin/bash \
         --create-home --base-dir /home \
