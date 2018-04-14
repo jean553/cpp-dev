@@ -20,6 +20,11 @@
         - g++
         - doxygen
 
+    - name: create directory that describes the sshd process since boot (mandatory)
+      file:
+        name: /var/run/sshd
+        state: directory
+
     - name: Clone oh-my-zsh repo
       git:
         repo=git://github.com/robbyrussell/oh-my-zsh.git
