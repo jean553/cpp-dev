@@ -5,18 +5,8 @@ ENV SUDOFILE /etc/sudoers
 
 # install ansible
 RUN apt-get update -y
-RUN apt-get install -y \
-    python-dev \
-    python-pip \
-    libssl-dev \
-    libffi-dev \
-    sudo \
-    openssh-server
-
-RUN pip install --upgrade \
-    appdirs \
-    packaging \
-    ansible
+RUN apt-get install python-pip -y
+RUN pip install --upgrade ansible
 
 COPY provisioning/ provisioning
 RUN ansible-playbook provisioning/site.yml -c local
