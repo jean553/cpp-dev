@@ -18,14 +18,10 @@ RUN pip install --upgrade \
     packaging \
     ansible
 
-RUN useradd \
-        --shell /bin/bash \
-        --create-home --base-dir /home \
-        --user-group \
-        --groups ssh \
-        --password '' \
-        vagrant && \
-    mkdir -p /home/vagrant/.ssh && \
+COPY provisioning/ provisioning
+RUN ansible-playbook provisioning/site.yml -c local
+
+RUN mkdir -p /home/vagrant/.ssh && \
     chown -R vagrant:vagrant /home/vagrant/.ssh
 
 RUN chmod +w ${SUDOFILE} && \
@@ -33,9 +29,6 @@ RUN chmod +w ${SUDOFILE} && \
 
 RUN echo 'vagrant:vagrant' | chpasswd
 
-COPY provisioning/ provisioning
-
-RUN ansible-playbook provisioning/site.yml -c local
 
 RUN chsh -s /bin/zsh vagrant
 
