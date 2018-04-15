@@ -19,6 +19,8 @@
         - cmake
         - g++
         - doxygen
+        - sudo
+        - openssh-server
 
     - name: create directory that describes the sshd process since boot (mandatory)
       file:
