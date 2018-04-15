@@ -4,7 +4,7 @@
 
   tasks:
 
-    - name: install basic tools
+    - name: required packages installed
       apt:
         name="{{ item }}"
         state=present
@@ -22,64 +22,64 @@
         - sudo
         - openssh-server
 
-    - name: create directory that describes the sshd process since boot (mandatory)
+    - name: sshd required directory created
       file:
         name: /var/run/sshd
         state: directory
 
-    - name: create development user group
+    - name: development user group created
       group:
         name: vagrant
         state: present
 
-    - name: create the user for development purposes
+    - name: development user created
       user:
         name: vagrant
         group: vagrant
         password: vagrant
         shell: /bin/zsh
 
-    - name: ensure dev user can perform admin actions
+    - name: admin connection privilige granted to dev user
       lineinfile:
         path: /etc/sudoers
         line: 'vagrant ALL=(ALL) ALL'
 
-    - name: set dev user password for ssh connection
+    - name: dev user allowed to ssh
       shell: echo 'vagrant:vagrant' | chpasswd
 
-    - name: Clone oh-my-zsh repo
+    - name: oh-my-zsh for zsh customization cloned
       git:
         repo=git://github.com/robbyrussell/oh-my-zsh.git
         dest=/home/vagrant/.oh-my-zsh
 
-    - name: Create a new zsh config
+    - name: custom zsh configuration copied
       command: cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
 
-    - name: creates pathogen vim directories
+    - name: vim pathogen directories created
       file: path={{ item }} state=directory
       with_items:
        - /home/vagrant/.vim/autoload
        - /home/vagrant/.vim/bundle
        - /home/vagrant/.vim/plugin
 
-    - name: install pathogen
+    - name: vim pathogen installed
       shell: curl -LSso /home/vagrant/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-    - name: install syntastic
+    - name: vim syntastic installed
       git:
         repo=https://github.com/scrooloose/syntastic.git
         dest=/home/vagrant/.vim/bundle/syntastic
         clone=yes
 
-    - name: copy the vim configuration
+    - name: vim configuration copied
       copy:
         src=roles/vim/files/vimrc
         dest=/home/vagrant/.vimrc
 
-    # TODO: check if it can be removed
+    # TODO: #21 check if it can be removed
 
-    - name: set git email for configuration
+    - name: git email configured
       shell: git config --global user.email "docker-cpp-dev@host.com"
 
-    - name: set git name for configuration
+    - name: git name configured
       shell: git config --global user.name "docker-cpp-dev"
