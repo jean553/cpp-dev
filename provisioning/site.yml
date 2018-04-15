@@ -35,6 +35,7 @@
         name: vagrant
         group: vagrant
         password: vagrant
+        shell: /bin/zsh
 
     - name: ensure dev user can perform admin actions
       lineinfile:
