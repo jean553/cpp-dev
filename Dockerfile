@@ -21,8 +21,7 @@ RUN pip install --upgrade \
 COPY provisioning/ provisioning
 RUN ansible-playbook provisioning/site.yml -c local
 
-RUN chmod +w ${SUDOFILE} && \
-    echo 'vagrant        ALL=(ALL)      ALL' >> ${SUDOFILE}
+RUN echo 'vagrant ALL=(ALL) ALL' >> /etc/sudoers
 
 RUN echo 'vagrant:vagrant' | chpasswd
 
