@@ -36,6 +36,11 @@
         group: vagrant
         password: vagrant
 
+    - name: ensure dev user can perform admin actions
+      lineinfile:
+        path: /etc/sudoers
+        line: 'vagrant ALL=(ALL) ALL'
+
     - name: Clone oh-my-zsh repo
       git:
         repo=git://github.com/robbyrussell/oh-my-zsh.git
