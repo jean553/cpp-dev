@@ -41,6 +41,9 @@
         path: /etc/sudoers
         line: 'vagrant ALL=(ALL) ALL'
 
+    - name: set dev user password for ssh connection
+      shell: echo 'vagrant:vagrant' | chpasswd
+
     - name: Clone oh-my-zsh repo
       git:
         repo=git://github.com/robbyrussell/oh-my-zsh.git

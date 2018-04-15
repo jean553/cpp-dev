@@ -21,8 +21,6 @@ RUN pip install --upgrade \
 COPY provisioning/ provisioning
 RUN ansible-playbook provisioning/site.yml -c local
 
-RUN echo 'vagrant:vagrant' | chpasswd
-
 RUN chsh -s /bin/zsh vagrant
 
 EXPOSE 22
