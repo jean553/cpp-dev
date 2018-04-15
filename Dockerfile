@@ -21,14 +21,10 @@ RUN pip install --upgrade \
 COPY provisioning/ provisioning
 RUN ansible-playbook provisioning/site.yml -c local
 
-RUN mkdir -p /home/vagrant/.ssh && \
-    chown -R vagrant:vagrant /home/vagrant/.ssh
-
 RUN chmod +w ${SUDOFILE} && \
     echo 'vagrant        ALL=(ALL)      ALL' >> ${SUDOFILE}
 
 RUN echo 'vagrant:vagrant' | chpasswd
-
 
 RUN chsh -s /bin/zsh vagrant
 
