@@ -24,7 +24,7 @@ Compile and execute C++14 code into an isolated/ready-to-be-used environment.
 Create the container:
 
 ```sh
-docker run --name cpp-dev -t -i -v {PATH_TO_THE_PROJECT}:/{PROJECT_NAME} jean553/cpp-dev /bin/zsh
+docker run --name cpp-dev -t -i -d -v {PATH_TO_THE_PROJECT}:/{PROJECT_NAME} jean553/cpp-dev /bin/zsh
 ```
 
 Start the container:
