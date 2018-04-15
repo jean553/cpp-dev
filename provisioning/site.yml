@@ -25,6 +25,17 @@
         name: /var/run/sshd
         state: directory
 
+    - name: create development user group
+      group:
+        name: vagrant
+        state: present
+
+    - name: create the user for development purposes
+      user:
+        name: vagrant
+        group: vagrant
+        password: vagrant
+
     - name: Clone oh-my-zsh repo
       git:
         repo=git://github.com/robbyrussell/oh-my-zsh.git
