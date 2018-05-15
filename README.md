@@ -11,9 +11,9 @@ Compile and execute C++14 code into an isolated/ready-to-be-used environment.
 
 ## Image properties
 
-* Ubuntu 17.10 (Artful)
-* g++ 7.2
-* cmake 3.9
+* Ubuntu 16.04
+* g++ 5
+* cmake 3.5
 * ZSH prompt (including oh-my-zsh)
 * VIM profile optimized for C++11/14 edition
 * syntastic C++11/14 checker
