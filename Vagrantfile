@@ -18,6 +18,5 @@ Vagrant.configure(2) do |config|
       }
     end
     app.ssh.username = "vagrant"
-    app.ssh.password = "vagrant"
   end
 end

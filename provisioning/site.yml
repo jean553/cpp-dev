@@ -19,33 +19,6 @@
         - cmake
         - g++
         - doxygen
-        - sudo
-        - openssh-server
-
-    - name: sshd required directory created
-      file:
-        name: /var/run/sshd
-        state: directory
-
-    - name: development user group created
-      group:
-        name: vagrant
-        state: present
-
-    - name: development user created
-      user:
-        name: vagrant
-        group: vagrant
-        password: vagrant
-        shell: /bin/zsh
-
-    - name: admin connection privilige granted to dev user
-      lineinfile:
-        path: /etc/sudoers
-        line: 'vagrant ALL=(ALL) ALL'
-
-    - name: dev user allowed to ssh
-      shell: echo 'vagrant:vagrant' | chpasswd
 
     - name: oh-my-zsh for zsh customization cloned
       git:
@@ -75,11 +48,3 @@
       copy:
         src=roles/vim/files/vimrc
         dest=/home/vagrant/.vimrc
-
-    # TODO: #21 check if it can be removed
-
-    - name: git email configured
-      shell: git config --global user.email "docker-cpp-dev@host.com"
-
-    - name: git name configured
-      shell: git config --global user.name "docker-cpp-dev"
