@@ -1,20 +1,36 @@
 # vim:set ft=dockerfile
-FROM ubuntu:artful
+FROM phusion/baseimage
+
+ENV SUDOFILE /etc/sudoers
+
+COPY change_user_uid.sh /
 
 # install ansible
 RUN apt-get update -y && \
-    apt-get install ansible -y
+    apt-get install ansible sudo -y
+
+# ssh configuration for Vagrant usage
+RUN \
+    rm -f /etc/service/sshd/down && \
+    echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config && \
+    echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config && \
+    useradd \
+        --shell /bin/zsh \
+        --create-home --base-dir /home \
+        --user-group \
+        --groups sudo,ssh \
+        --password '' \
+        vagrant && \
+    mkdir -p /home/vagrant/.ssh && \
+    chown -R vagrant:vagrant /home/vagrant/.ssh && \
+    chmod u+w ${SUDOFILE} && \
+    echo '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL' >> ${SUDOFILE} && \
+    chmod u-w ${SUDOFILE}
 
 # build the image using the ansible steps
 COPY provisioning/ provisioning
 RUN ansible-playbook provisioning/site.yml -c local
 
-# the container listens on port 22 (ssh) at runtime,
-# as it should be accessed through `vagrant ssh` for dev
-EXPOSE 22
-
-# the main process running on the container is SSH,
-# so the dev user can connect to it for dev purposes;
-# -D ensures SSH is not run the in the background,
-# so it ensures the container stays alive
-CMD ["/usr/sbin/sshd", "-D"]
+RUN chmod +x /change_user_uid.sh
+ENTRYPOINT /change_user_uid.sh
+CMD ["/sbin/my_init"]
