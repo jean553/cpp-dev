@@ -28,6 +28,13 @@
     - name: custom zsh configuration copied
       command: cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
 
+    - name: zsh has vagrant project as default directory
+      lineinfile:
+        dest: /home/vagrant/.zshrc
+        line: 'cd /vagrant'
+        state: present
+        create: yes
+
     - name: vim pathogen directories created
       file: path={{ item }} state=directory
       with_items:

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2018-05-21
+### Modified
+ * SSH into the container directly redirects to the /vagrant folder (where the project is mounted)
+
 ## [2.0.0] - 2018-05-15
 ### Added
  * Downgrade to Ubuntu 16.04 phusion-baseimage image in order to build a development environment that is closer to a virtual machine (more suitable for dev purposes) but keeping the container lightness
