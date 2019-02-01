@@ -2,16 +2,22 @@
 - hosts: localhost
   become: true
 
-  tasks:
+  vars:
+    username: "vagrant"
+    home: "/home/{{ username }}"
+    document_root: "/{{ username }}"
 
+  roles:
+    - zsh
+    - neovim
+
+  tasks:
     - name: required packages installed
       apt:
         name="{{ item }}"
         state=present
         update_cache=yes
       with_items:
-        - vim
-        - zsh
         - wget
         - git
         - curl
@@ -19,39 +25,3 @@
         - cmake
         - g++
         - doxygen
-
-    - name: oh-my-zsh for zsh customization cloned
-      git:
-        repo=git://github.com/robbyrussell/oh-my-zsh.git
-        dest=/home/vagrant/.oh-my-zsh
-
-    - name: custom zsh configuration copied
-      command: cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
-
-    - name: zsh has vagrant project as default directory
-      lineinfile:
-        dest: /home/vagrant/.zshrc
-        line: 'cd /vagrant'
-        state: present
-        create: yes
-
-    - name: vim pathogen directories created
-      file: path={{ item }} state=directory
-      with_items:
-       - /home/vagrant/.vim/autoload
-       - /home/vagrant/.vim/bundle
-       - /home/vagrant/.vim/plugin
-
-    - name: vim pathogen installed
-      shell: curl -LSso /home/vagrant/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-    - name: vim syntastic installed
-      git:
-        repo=https://github.com/scrooloose/syntastic.git
-        dest=/home/vagrant/.vim/bundle/syntastic
-        clone=yes
-
-    - name: vim configuration copied
-      copy:
-        src=roles/vim/files/vimrc
-        dest=/home/vagrant/.vimrc

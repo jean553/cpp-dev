@@ -7,7 +7,11 @@ COPY change_user_uid.sh /
 
 # install ansible
 RUN apt-get update -y && \
-    apt-get install ansible sudo -y
+    apt-get install \
+        ansible \
+        sudo \
+        python3-pip \
+        -y
 
 # ssh configuration for Vagrant usage
 RUN \
@@ -29,7 +33,7 @@ RUN \
 
 # build the image using the ansible steps
 COPY provisioning/ provisioning
-RUN ansible-playbook provisioning/site.yml -c local
+RUN ansible-playbook provisioning/site.yml -c local -i local,
 
 RUN chmod +x /change_user_uid.sh
 ENTRYPOINT /change_user_uid.sh
